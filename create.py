@@ -17,6 +17,10 @@ def build_parser():
     parser = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument('-n', '--noisy', default=False,
+                        action='store_true',
+                        help='set this to randomize order of the audio files. '
+                        'default: %(default)s')
     parser.add_argument('-d', '--database',
                         default='library.db',
                         help='SQLite database file name. '
@@ -42,9 +46,9 @@ class Book():
     Holder for my books.
     """
     def __init__(self, args):
-        self.db = Database(args.database)
+        self.db = Database(args.database, args.noisy)
         self.author = None
-        
+
 
     def enter(self):
         """
