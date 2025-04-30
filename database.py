@@ -37,6 +37,16 @@ class Database():
         self.con.commit()
 
 
+    def get_id(self, table_name):
+        """
+        Get the latest ID value for a table.
+        """
+        sql = f'select seq from sqlite_sequence where name="{table_name}"'
+        cursor = self.con.cursor()
+        cursor.execute(sql)
+        return cursor.fetchone()[0]
+
+
     def select(self, column_names, table_name, where, alt_selects=()):
         """
         Basic SELECT. Returns list of dicts using column_names as keys.
