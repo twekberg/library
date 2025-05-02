@@ -6,6 +6,7 @@ Create a new DVD entry in the library.
 
 import argparse
 import sys
+import pyperclip
 
 from database import Database
 
@@ -26,6 +27,15 @@ def build_parser():
                         help='SQLite database file name. '
                         ' Default: %(default)s.')
     return parser
+
+
+def add_to_clipboard(text):
+    """
+    Put the text in the clipboard, removing whitespace from either
+    end. What actually happens is that an extra character is appended
+    to the clipboard which needs to be deleted to get the text.
+    """
+    pyperclip.copy(text.strip())
 
 
 def readline(prompt, default=None):
@@ -70,6 +80,7 @@ class Dvd():
         title = readline('DVD Title')
         if not title:
             return None
+        add_to_clipboard(title) # Save it so we can paste it for the next season
         star = readline('Star', self.star)
         if star:
             self.star = star
