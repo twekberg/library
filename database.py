@@ -9,7 +9,7 @@ class Database():
     """
     Collect data from the database and the user.
     """
-    def __init__(self, database_file, noisy=False):
+    def __init__(self, database_file, noisy=True):
         self.con = self.db_open(database_file)
         self.noisy = noisy
 
